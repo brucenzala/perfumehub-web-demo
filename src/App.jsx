@@ -1,36 +1,20 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import About from "./pages/About";
 import "./App.css";
 
-const API_URL = "https://perfumehub-api-ozvz.onrender.com/api";
-
 function App() {
-  const [status, setStatus] = useState("Checking API...");
-  const [appName, setAppName] = useState("");
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch(`${API_URL}/health`)
-      .then((res) => res.json())
-      .then((data) => {
-        setStatus(data.status);
-        setAppName(data.application);
-      })
-      .catch((err) => setError(err.message));
-  }, []);
-
   return (
-    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>PerfumeHub Demo</h1>
-      <p>API URL: {API_URL}</p>
-      {error ? (
-        <p style={{ color: "red" }}>Error: {error}</p>
-      ) : (
-        <div>
-          <p>Status: <strong>{status}</strong></p>
-          <p>Application: <strong>{appName}</strong></p>
-        </div>
-      )}
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
