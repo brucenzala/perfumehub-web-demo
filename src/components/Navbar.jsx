@@ -27,7 +27,9 @@ function Navbar() {
       </Link>
       {isAuthenticated ? (
         <>
-          <span style={{ color: "white" }}>Hi, {user?.name || "..."}</span>
+          <Link to="/profile" style={{ color: "white", textDecoration: "none" }}>
+            Hi, {user?.name || "..."}
+          </Link>
           <button
             onClick={handleLogout}
             style={{ background: "none", border: "1px solid white", color: "white", padding: "4px 10px", cursor: "pointer" }}
