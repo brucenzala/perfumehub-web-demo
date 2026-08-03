@@ -138,7 +138,7 @@ function Home() {
       <div style={{ background: "#f5f5f5", padding: "2rem", textAlign: "center" }}>
         <h2>About PerfumeHub</h2>
         <p style={{ maxWidth: 600, margin: "0.5rem auto 1rem" }}>
-          We bring premium, long-lasting fragrances to Zambia — sourced for
+          We bring premium, long-lasting fragrances to Zambia sourced for
           quality and crafted to make every day memorable.
         </p>
         <Link to="/about" style={{ color: "#2E5C88", fontWeight: "bold" }}>
