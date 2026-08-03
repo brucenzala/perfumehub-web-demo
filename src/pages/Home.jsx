@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
@@ -32,7 +32,6 @@ function Home() {
 
   return (
     <div>
-      {/* Hero section */}
       <div
         style={{
           background: "linear-gradient(135deg, #2E5C88, #4A7FB5)",
@@ -60,7 +59,6 @@ function Home() {
         </Link>
       </div>
 
-      {/* Featured products */}
       <div style={{ padding: "2rem" }}>
         <h2 style={{ marginBottom: "1rem" }}>Featured Fragrances</h2>
 
@@ -75,55 +73,67 @@ function Home() {
               gap: "1.5rem",
             }}
           >
-            {products.map((product) => (
-              <div
-                key={product.id}
-                style={{
-                  border: "1px solid #ddd",
-                  borderRadius: "8px",
-                  padding: "1rem",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Link
-                  to={`/products/${product.id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {product.image_url ? (
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      style={{ width: "100%", height: "160px", objectFit: "cover", borderRadius: "6px", marginBottom: "0.5rem" }}
-                    />
-                  ) : (
-                    <div style={{ height: "160px", background: "#f2f2f2", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", color: "#999", marginBottom: "0.5rem" }}>
-                      No Image
-                    </div>
-                  )}
-                  <h3 style={{ margin: "0 0 0.5rem" }}>{product.name}</h3>
-                  <p style={{ color: "#555", fontSize: "0.9rem", flexGrow: 1 }}>
-                    {product.description}
-                  </p>
-                  <p style={{ fontWeight: "bold", margin: "0.5rem 0" }}>
-                    ZMW {product.price}
-                  </p>
-                </Link>
-                <button
-                  onClick={() => handleAddToCart(product)}
+            {products.map((product) => {
+              const outOfStock = product.stock <= 0;
+              return (
+                <div
+                  key={product.id}
                   style={{
-                    background: addedId === product.id ? "#2f9e44" : "#2E5C88",
-                    color: "white",
-                    border: "none",
-                    padding: "0.5rem",
-                    borderRadius: "4px",
-                    cursor: "pointer",
+                    border: "1px solid #ddd",
+                    borderRadius: "8px",
+                    padding: "1rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    opacity: outOfStock ? 0.6 : 1,
                   }}
                 >
-                  {addedId === product.id ? "Added to cart ✓" : "Add to Cart"}
-                </button>
-              </div>
-            ))}
+                  <Link
+                    to={`/products/${product.id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <div style={{ position: "relative" }}>
+                      {product.image_url ? (
+                        <img
+                          src={product.image_url}
+                          alt={product.name}
+                          style={{ width: "100%", height: "160px", objectFit: "cover", borderRadius: "6px", marginBottom: "0.5rem" }}
+                        />
+                      ) : (
+                        <div style={{ height: "160px", background: "#f2f2f2", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", color: "#999", marginBottom: "0.5rem" }}>
+                          No Image
+                        </div>
+                      )}
+                      {outOfStock && (
+                        <span style={{ position: "absolute", top: 8, left: 8, background: "#c0392b", color: "white", fontSize: "0.75rem", padding: "2px 8px", borderRadius: "4px" }}>
+                          Out of Stock
+                        </span>
+                      )}
+                    </div>
+                    <h3 style={{ margin: "0 0 0.5rem" }}>{product.name}</h3>
+                    <p style={{ color: "var(--text)", fontSize: "0.9rem", flexGrow: 1 }}>
+                      {product.description}
+                    </p>
+                    <p style={{ fontWeight: "bold", margin: "0.5rem 0" }}>
+                      ZMW {product.price}
+                    </p>
+                  </Link>
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    disabled={outOfStock}
+                    style={{
+                      background: outOfStock ? "#aaa" : (addedId === product.id ? "#2f9e44" : "#2E5C88"),
+                      color: "white",
+                      border: "none",
+                      padding: "0.5rem",
+                      borderRadius: "4px",
+                      cursor: outOfStock ? "not-allowed" : "pointer",
+                    }}
+                  >
+                    {outOfStock ? "Out of Stock" : (addedId === product.id ? "Added to cart ✓" : "Add to Cart")}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -134,11 +144,10 @@ function Home() {
         </div>
       </div>
 
-      {/* About teaser */}
       <div style={{ background: "#f5f5f5", padding: "2rem", textAlign: "center" }}>
         <h2>About PerfumeHub</h2>
         <p style={{ maxWidth: 600, margin: "0.5rem auto 1rem" }}>
-          We bring premium, long-lasting fragrances to Zambia sourced for
+          We bring premium, long-lasting fragrances to Zambia — sourced for
           quality and crafted to make every day memorable.
         </p>
         <Link to="/about" style={{ color: "#2E5C88", fontWeight: "bold" }}>
