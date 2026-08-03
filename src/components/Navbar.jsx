@@ -1,4 +1,4 @@
-﻿import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -19,6 +19,9 @@ function Navbar() {
       <Link to="/" style={{ color: "white", textDecoration: "none" }}>Home</Link>
       <Link to="/products" style={{ color: "white", textDecoration: "none" }}>Products</Link>
       <Link to="/about" style={{ color: "white", textDecoration: "none" }}>About</Link>
+      {isAuthenticated && (
+        <Link to="/orders" style={{ color: "white", textDecoration: "none" }}>My Orders</Link>
+      )}
       <Link to="/cart" style={{ color: "white", textDecoration: "none", marginLeft: "auto" }}>
         Cart ({itemCount})
       </Link>
