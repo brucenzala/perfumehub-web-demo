@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -57,6 +57,9 @@ export default function Login() {
             >
               {showPassword ? "Hide" : "Show"}
             </button>
+          </div>
+          <div style={{ textAlign: "right", marginTop: 4 }}>
+            <Link to="/forgot-password" style={{ fontSize: "0.85rem" }}>Forgot password?</Link>
           </div>
         </div>
         <button type="submit" disabled={loading} style={{ width: "100%", padding: 10 }}>
