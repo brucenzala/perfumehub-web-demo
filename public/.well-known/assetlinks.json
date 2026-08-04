@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vercel.perfumehub_web_demo.twa",
+      "sha256_cert_fingerprints": [
+        "A7:56:FF:33:71:B1:1C:50:2D:32:7E:90:0F:FF:77:2E:D9:91:48:03:CA:75:E3:F6:7B:46:CE:F1:A9:CF:64:3E"
+      ]
+    }
+  }
+]
