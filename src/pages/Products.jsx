@@ -8,6 +8,7 @@ function Products() {
   const [error, setError] = useState(null);
   const [addedId, setAddedId] = useState(null);
   const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
   const { addToCart } = useCart();
   useEffect(() => {
     fetch(`${API_URL}/products`)
@@ -32,11 +33,22 @@ function Products() {
   if (error) return <div style={{ padding: "2rem", color: "red" }}>Error: {error}</div>;
 
   const categories = ["All", "Men", "Women"];
-  const filteredProducts = filter === "All" ? products : products.filter((p) => p.category === filter);
+  const categoryFiltered = filter === "All" ? products : products.filter((p) => p.category === filter);
+  const filteredProducts = search.trim() === ""
+    ? categoryFiltered
+    : categoryFiltered.filter((p) => p.name.toLowerCase().includes(search.trim().toLowerCase()));
 
   return (
     <div style={{ padding: "2rem" }}>
       <h1>Our Perfumes</h1>
+
+      <input
+        type="text"
+        placeholder="Search perfumes by name..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ width: "100%", maxWidth: "400px", padding: "0.6rem 1rem", borderRadius: "20px", border: "1px solid #ccc", marginBottom: "1rem", display: "block" }}
+      />
 
       <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1.5rem" }}>
         {categories.map((cat) => (
@@ -93,7 +105,7 @@ function Products() {
                 disabled={outOfStock}
                 style={{ width: "100%", padding: "0.5rem", background: outOfStock ? "#aaa" : (addedId === product.id ? "#2f9e44" : "#2E5C88"), color: "white", border: "none", borderRadius: "4px", cursor: outOfStock ? "not-allowed" : "pointer" }}
               >
-                {outOfStock ? "Out of Stock" : (addedId === product.id ? "Added to cart ✓" : "Add to Cart")}
+                {outOfStock ? "Out of Stock" : (addedId === product.id ? "Added to cart check" : "Add to Cart")}
               </button>
             </div>
           );
@@ -101,7 +113,7 @@ function Products() {
       </div>
 
       {filteredProducts.length === 0 && (
-        <p style={{ color: "var(--text)", marginTop: "1rem" }}>No products in this category yet.</p>
+        <p style={{ color: "var(--text)", marginTop: "1rem" }}>No products match your search.</p>
       )}
     </div>
   );
