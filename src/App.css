@@ -199,3 +199,14 @@
     background-position: -200% 0;
   }
 }
+
+@media (max-width: 480px) {
+  .counter {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  #center {
+    gap: 15px;
+    padding: 16px 20px;
+  }
+}
