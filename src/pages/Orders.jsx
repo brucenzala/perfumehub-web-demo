@@ -43,7 +43,21 @@ export default function Orders() {
     );
   }
 
-  if (loading) return <div style={{ padding: "2rem" }}>Loading your orders...</div>;
+  if (loading) {
+    return (
+      <div style={{ padding: "2rem", maxWidth: 700, margin: "0 auto" }}>
+        <h1>Your Orders</h1>
+        {[1, 2].map((i) => (
+          <div key={i} style={{ border: "1px solid #ddd", borderRadius: "8px", padding: "1rem", marginBottom: "1rem" }}>
+            <div className="skeleton" style={{ height: "18px", width: "40%", marginBottom: "0.75rem" }} />
+            <div className="skeleton" style={{ height: "14px", width: "70%", marginBottom: "0.75rem" }} />
+            <div className="skeleton" style={{ height: "14px", width: "100%", marginBottom: "0.5rem" }} />
+            <div className="skeleton" style={{ height: "14px", width: "50%" }} />
+          </div>
+        ))}
+      </div>
+    );
+  }
   if (error) return <div style={{ padding: "2rem", color: "red" }}>Error: {error}</div>;
 
   if (orders.length === 0) {
@@ -51,7 +65,7 @@ export default function Orders() {
       <div style={{ padding: "2rem", textAlign: "center" }}>
         <h2>No orders yet</h2>
         <Link to="/products" style={{ color: "#2E5C88", fontWeight: "bold" }}>
-          Start shopping →
+          Start shopping
         </Link>
       </div>
     );
@@ -86,12 +100,12 @@ export default function Orders() {
             </span>
           </div>
           <p style={{ color: "var(--text)", fontSize: "0.9rem", margin: "0.25rem 0" }}>
-            {new Date(order.created_at).toLocaleDateString()} · Delivering to {order.shipping_address}
+            {new Date(order.created_at).toLocaleDateString()} - Delivering to {order.shipping_address}
           </p>
           <div style={{ marginTop: "0.5rem" }}>
             {order.items.map((item) => (
               <div key={item.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.9rem" }}>
-                <span>{item.product_name} × {item.quantity}</span>
+                <span>{item.product_name} x {item.quantity}</span>
                 <span>ZMW {(parseFloat(item.price) * item.quantity).toFixed(2)}</span>
               </div>
             ))}

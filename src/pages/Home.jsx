@@ -62,8 +62,20 @@ function Home() {
       <div style={{ padding: "2rem" }}>
         <h2 style={{ marginBottom: "1rem" }}>Featured Fragrances</h2>
 
-        {loading && <p>Loading featured products...</p>}
         {error && <p style={{ color: "red" }}>Couldn't load products: {error}</p>}
+
+        {loading && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem" }}>
+            {[1, 2, 3].map((i) => (
+              <div key={i} style={{ border: "1px solid #ddd", borderRadius: "8px", padding: "1rem" }}>
+                <div className="skeleton" style={{ height: "160px", marginBottom: "0.5rem" }} />
+                <div className="skeleton" style={{ height: "18px", width: "70%", marginBottom: "0.5rem" }} />
+                <div className="skeleton" style={{ height: "14px", width: "100%", marginBottom: "0.5rem" }} />
+                <div className="skeleton" style={{ height: "36px", width: "100%" }} />
+              </div>
+            ))}
+          </div>
+        )}
 
         {!loading && !error && (
           <div

@@ -23,7 +23,18 @@ function ProductDetail() {
     setTimeout(() => setAdded(false), 1500);
   }
 
-  if (loading) return <div style={{ padding: "2rem" }}>Loading...</div>;
+  if (loading) {
+    return (
+      <div style={{ padding: "2rem", maxWidth: "600px" }}>
+        <div className="skeleton" style={{ height: "250px", marginBottom: "1rem" }} />
+        <div className="skeleton" style={{ height: "28px", width: "60%", marginBottom: "0.5rem" }} />
+        <div className="skeleton" style={{ height: "16px", width: "30%", marginBottom: "1rem" }} />
+        <div className="skeleton" style={{ height: "16px", width: "100%", marginBottom: "0.5rem" }} />
+        <div className="skeleton" style={{ height: "16px", width: "80%", marginBottom: "1rem" }} />
+        <div className="skeleton" style={{ height: "44px", width: "180px" }} />
+      </div>
+    );
+  }
   if (!product) return <div style={{ padding: "2rem" }}>Product not found.</div>;
 
   const outOfStock = product.stock <= 0;
@@ -60,7 +71,7 @@ function ProductDetail() {
         disabled={outOfStock}
         style={{ padding: "0.75rem 1.5rem", background: outOfStock ? "#aaa" : (added ? "#2f9e44" : "#2E5C88"), color: "white", border: "none", borderRadius: "4px", cursor: outOfStock ? "not-allowed" : "pointer", fontSize: "1rem" }}
       >
-        {outOfStock ? "Out of Stock" : (added ? "Added to cart ✓" : "Add to Cart")}
+        {outOfStock ? "Out of Stock" : (added ? "Added to cart check" : "Add to Cart")}
       </button>
     </div>
   );
