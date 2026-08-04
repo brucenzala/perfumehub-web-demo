@@ -129,7 +129,7 @@ function Home() {
                       cursor: outOfStock ? "not-allowed" : "pointer",
                     }}
                   >
-                    {outOfStock ? "Out of Stock" : (addedId === product.id ? "Added to cart ✓" : "Add to Cart")}
+                    {outOfStock ? "Out of Stock" : (addedId === product.id ? "Added to cart check" : "Add to Cart")}
                   </button>
                 </div>
               );
@@ -139,7 +139,7 @@ function Home() {
 
         <div style={{ marginTop: "2rem", textAlign: "center" }}>
           <Link to="/products" style={{ color: "#2E5C88", fontWeight: "bold" }}>
-            View all products →
+            View all products
           </Link>
         </div>
       </div>
@@ -147,11 +147,11 @@ function Home() {
       <div style={{ background: "#f5f5f5", padding: "2rem", textAlign: "center" }}>
         <h2>About PerfumeHub</h2>
         <p style={{ maxWidth: 600, margin: "0.5rem auto 1rem" }}>
-          We bring premium, long-lasting fragrances to Zambia — sourced for
+          We bring premium, long-lasting fragrances to Zambia, sourced for
           quality and crafted to make every day memorable.
         </p>
         <Link to="/about" style={{ color: "#2E5C88", fontWeight: "bold" }}>
-          Learn more about us →
+          Learn more about us
         </Link>
       </div>
     </div>
